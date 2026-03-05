@@ -1,0 +1,14 @@
+# PDFs (datos sensibles / grandes)
+*.pdf
+
+# Modelos entrenados y datos generados
+slm_pdf/output/
+slm_pdf/data/
+
+# Cache de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store

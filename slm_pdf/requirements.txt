@@ -1,0 +1,10 @@
+torch>=2.1.0
+transformers>=5.0.0
+tokenizers>=0.21.0
+sentence-transformers>=3.0.0
+faiss-cpu>=1.7.4
+pdfplumber>=0.10.0
+datasets>=2.14.0
+accelerate>=0.24.0
+numpy>=1.24.0
+tqdm>=4.65.0
