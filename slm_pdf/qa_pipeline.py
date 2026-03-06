@@ -200,14 +200,14 @@ class QAPipeline:
     def _load_slm(self) -> None:
         if self._model_loaded:
             return
-        from model import SmallLM
+        from model import load_model, SmallLM, HybridSmallLM
         if not (self.model_dir / "config.json").exists():
             raise FileNotFoundError(
                 f"Modelo no encontrado en {self.model_dir}.\n"
                 "Ejecuta primero: python3 train.py"
             )
-        print("🤖 Cargando SmallLM entrenado...")
-        self.model = SmallLM.load(self.model_dir, map_location=self.device)
+        print("🤖 Cargando SLM entrenado...")
+        self.model = load_model(self.model_dir, map_location=self.device)
         self.model.to(self.device)
         self.model.eval()
         self.tokenizer = PreTrainedTokenizerFast.from_pretrained(str(self.model_dir))
