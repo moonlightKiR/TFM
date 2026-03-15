@@ -318,7 +318,7 @@ class QAPipeline:
         question: str,
         top_k: int = 3,
         max_new_tokens: int = 150,
-        temperature: float = 0.7,
+        temperature: float = 0.3,
         top_p: float = 0.9,
         source: str | None = None,
         verbose: bool = True,
@@ -356,7 +356,7 @@ class QAPipeline:
             temperature=temperature,
             top_p=top_p,
             eos_token_id=self.tokenizer.eos_token_id,
-            repetition_penalty=1.3,
+            repetition_penalty=1.1,
         )
         new_tokens = output[0][input_ids.shape[1]:]
         return self.tokenizer.decode(new_tokens, skip_special_tokens=True).strip()

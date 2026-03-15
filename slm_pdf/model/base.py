@@ -174,11 +174,19 @@ class SmallLM(nn.Module):
 
             # Penalización de repetición
             if repetition_penalty != 1.0:
-                for tid in generated[0].unique():
-                    if logits[0, tid] > 0:
-                        logits[0, tid] /= repetition_penalty
-                    else:
-                        logits[0, tid] *= repetition_penalty
+                # Sólo penalizar los tokens que ha generado el modelo
+                # No penalizamos el prompt inicial, para que no "prohíba"
+                # las palabras que le hemos dado en la pregunta
+                prompt_len = input_ids.shape[1]
+                generated_tokens = generated[:, prompt_len:]
+                
+                # Check if generated_tokens is not empty
+                if generated_tokens.shape[1] > 0:
+                    for tid in generated_tokens[0].unique():
+                        if logits[0, tid] > 0:
+                            logits[0, tid] /= repetition_penalty
+                        else:
+                            logits[0, tid] *= repetition_penalty
 
             logits = logits / max(temperature, 1e-8)
 
